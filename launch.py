@@ -1,10 +1,11 @@
 import font_rc
 from mainui import Ui_Form
-from PyQt5.QtWidgets import QApplication,QWidget
+from PyQt5.QtWidgets import QApplication,QWidget,QMessageBox
 from PyQt5.QtGui import QFontDatabase,QFont, QPaintEvent
 from multiprocessing import Process
-from player import main as play
+from player import main as play,test as check
 from PyQt5.QtCore import pyqtSlot
+ans = check()
 app = QApplication(["QATimer"])
 fontdb = QFontDatabase()
 fontid = fontdb.addApplicationFont(":resources/FiraCode-Regular.ttf")
@@ -66,5 +67,8 @@ class Window(QWidget):
             y = 30
         self.ui.pointer.setGeometry(20,y,40,30)
 window = Window()
-window.show()
-app.exec_()
+if not ans:
+    QMessageBox.critical(window,"出现问题","您的电脑似乎显示不正常或者不支持此窗口系统，请尝试调节分辨率或更换系统")
+else:
+    window.show()
+    app.exec_()
