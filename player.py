@@ -7,7 +7,7 @@ resources = {"FiraCode 40":pygame.font.Font("FiraCode-Regular.ttf",40),
              "ding":pygame.mixer.Sound("ding.mp3")}
 def test():
     pass
-def main(acolor=[0,128,255],bcolor=[255,128,0],dtime=2.0,tbuf=0.5,discolor=[80,80,80]):
+def main(acolor=[0,128,255],bcolor=[255,128,0],dtime=2.0,tbuf=0.5,discolor=[80,80,80],window=None):
     screen = pygame.display.set_mode([0,0],flags=pygame.FULLSCREEN|pygame.DOUBLEBUF)
     size = screen.get_size()
     screen.fill([0,0,0])
@@ -23,7 +23,9 @@ def main(acolor=[0,128,255],bcolor=[255,128,0],dtime=2.0,tbuf=0.5,discolor=[80,8
     bbuf = tbuf
     t0 = time.time()
     status = 2
+    cnt = 0
     while keepgoing:
+        cnt += 1
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
@@ -75,6 +77,8 @@ def main(acolor=[0,128,255],bcolor=[255,128,0],dtime=2.0,tbuf=0.5,discolor=[80,8
         screen.blit(bts,[(size[0]/2-bts.get_width())/2 + size[0]/2,200])
         screen.blit(abus,[(size[0]/2-abus.get_width())/2,500])
         screen.blit(bbus,[(size[0]/2-bbus.get_width())/2 + size[0]/2,500])
+        if window and cnt % 10 == 0:
+            window.repaint()
         pygame.display.update()
         clock.tick(60)
     pygame.display.quit()

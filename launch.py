@@ -31,7 +31,7 @@ class Window(QWidget):
         else:
             dtime = eval(self.ui.time4.text())
             self.status = -1
-        play(dtime=dtime)
+        play(dtime=dtime,window=self)
         if self.status == -1:
             self.close()
         self.repaint()
